@@ -1,3 +1,5 @@
+let theGame;
+let gameWon;
 class Game {
     constructor(theGrid, player){
         this.grid = theGrid;
@@ -14,6 +16,16 @@ class Game {
                     this.obstacles.push([x, y])
                 }
                 
+            }
+        }
+    }
+
+    gameWon(){
+        for (var x = 0; x < grid.length; x++){
+            for (var y = 0; y < grid[x].length; y++){
+                if(this.grid[x][y] === 'e'){
+                    alert("YOU HAVE SUCCESFULLY PASSED THIS LEVEL!!!")
+                }
             }
         }
     }
@@ -38,6 +50,16 @@ class Player{
 
     // }
 
+}
+
+    class Monster{
+        constructor(){
+            this.x = 2;
+            this.y = 3;
+            this.health = 20;
+            this.strength = 50;
+            this.monsterPosition = this.x, this.y;
+        }
 }
 
     

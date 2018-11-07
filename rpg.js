@@ -1,25 +1,73 @@
-let grid = [
+let grid = [  
     ['p', null, 'o', null, null],
     ['o', null, null, null, 'o'],
     ['o', 'o', null, null, 'o'],
-    ['e', null, null, null, 'o'],
-    [null, null, 'o', 'o', null],
-];
+    ['e', null, 'm', null, 'o'],
+    [null, null, 'o', 'o', null],];
+
+    // sample two grids within objects
+// let grid = [
+            // {
+    //     ['p', null, 'o', null, null],
+    //     ['o', null, null, null, 'o'],
+    //     ['o', 'o', null, null, 'o'],
+    //     ['e', null, null, null, 'o'],
+    //     [null, null, 'o', 'o', null],
+            // }
+            // {
+//          ['p', null, 'o', null, null],
+//          ['o', null, null, null, 'o'],
+//          ['o', 'o', null, null, 'o'],
+//          [null, 'o', null, null, 'o'],
+//          [null, 'e', null, 'o', null],
+            // }
+            // {
+//          ['p', null, 'o', null, null],
+//          ['o', null, null, null, 'o'],
+//          ['o', 'o', null, null, 'o'],
+//          [null, 'o', null, null, 'o'],
+//          [null, 'e', null, 'o', null],
+            // }
+// ];
 
 
 document.getElementById('start-game').onclick = function () {
     console.log("game starting!")
     // player
-    getObstacles();
+    // let player = new Player(); 
+
+//logs to the console what you have to do
+console.log('You are at position ' + player.x + '. You have 120 seconds to finish the maze.')
+
+    let theGame = new Game;
+
+    Game.obstacles;
+    // shuffleArray();
+    gameWon();
 }
+let monster = new Monster();
 let player = new Player();
 
 
-//this is the grid (map of the game)
+
+// shuffle through the arrays in order to select a specific grid
+    // function shuffleArray(gridArray){
+    //     for (let i = 0; i > gridArray.length; i++){
+    //         var j = Math.floor(Math.random() * (i + 1));
+    //         var temp = gridArray[i];
+    //         gridArray[i] = gridArray[j];
+    //         gridArray[j] = temp;
+    //     }
+    // }
 
 
-//logs to the console what you have to do
-console.log('You are here ' + player.x + '. You have 120 seconds to finish the maze.')
+// randomize the position of the monster on the grid, only on spots that are null
+// function monsterPosition(){
+//     for (let i = 0; i > mon){
+
+//     }
+// }
+
 
 document.body.onkeydown = function(e){
     // this if statement checks to see if the keys being pressed are left right up or down
@@ -79,15 +127,15 @@ document.body.onkeydown = function(e){
                 if(noMove("y", "down")){
                     player.y += 1;
                     console.log('moved one spot down');
+                    }
                 }
-            }
             
+            }
+        
+        
         }
-        
-        
-    }
     return noMove(e);
-}
+    }
 }
 
 

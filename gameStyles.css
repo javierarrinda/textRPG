@@ -6,11 +6,17 @@ body{
 .arrowKeysPicture{
     height: 25vh;
     width: 20vw;
-    margin-top: 70vh;
-    margin-right: 8vw;
+    margin-right: 12vw;
 }
 
 #pictureDiv{
     display: flex;
     justify-content: flex-end;
+}
+
+.centerButton button{
+    border-radius: 6px;
+    background-color: black;
+    color: white;
+    margin-top: 45vh;
 }
