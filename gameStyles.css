@@ -1,0 +1,16 @@
+body{
+    background-color: black;
+}
+
+
+.arrowKeysPicture{
+    height: 25vh;
+    width: 20vw;
+    margin-top: 70vh;
+    margin-right: 8vw;
+}
+
+#pictureDiv{
+    display: flex;
+    justify-content: flex-end;
+}
