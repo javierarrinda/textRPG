@@ -2,23 +2,13 @@ body{
     background-color: black;
 }
 
-
-.arrowKeysPicture{
-    height: 25vh;
-    width: 20vw;
-    margin-right: 12vw;
-}
-
-#pictureDiv{
-    display: flex;
-    justify-content: flex-end;
-}
-
 .centerButton button{
     border-radius: 6px;
     background-color: black;
     color: white;
     margin-top: 45vh;
+    padding: 3vh 3vw;
+    font-size: 2em;
 }
 
 .divThatOutputsText{
@@ -32,6 +22,12 @@ body{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-#timer{
+#counter{
     color: white;
+}
+
+.timerDiv{
+    display: flex;
+    justify-content: center;
+    margin-top: 5vh;
 }

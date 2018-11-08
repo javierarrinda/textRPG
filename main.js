@@ -5,8 +5,8 @@ class Game {
         this.grid = theGrid;
         this.player = player;
         this.obstacles = [];
-        this.timer = 120;
-        this.monsterPosition = [];
+        this.exit;
+        this.timer = 60;
         this.getObstacles();
     }
     
@@ -22,24 +22,16 @@ class Game {
         }
     }
 
-    gameWon(){
+    setExit(){
         for (var x = 0; x < grid.length; x++){
             for (var y = 0; y < grid[x].length; y++){
                 if(this.grid[x][y] === 'e'){
-                    alert("YOU HAVE SUCCESSFULLY PASSED THIS LEVEL!!!")
+                    this.exit = [x, y];
+                    // alert("YOU HAVE SUCCESSFULLY PASSED THIS LEVEL!!!")
                 }
             }
         }
-        //for each loop that itirates through array and puts objects, should return false if there is an object there
-        game.player.forEach((obstacle) => {
-            checkIfTouched(this.player)
-            if(checkIfTouched === true){
-                document.getElementById('idOutputText') = "You can't move in that direction, there seems to be a wall.";
-             return false;
-            }
-          })
     }
-
 }  
 
 class Player{
@@ -47,31 +39,67 @@ class Player{
         this.x = 0;
         this.y = 0;
         this.health = 50;
-        this.strength = 10;
+        this.strength = 25;
         this.playerPosition = this.x, this.y;
     }
-checkIfTouched(player) {
-    if(game.playerPosition === game.obstacles){
-      this.touched = true;
-    }
-  } 
+// checkIfTouched(player) {
+//     if(game.playerPosition === game.obstacles){
+//       this.touched = true;
+//     }
+//   } 
+    countdown() {
+        var seconds = 60;
+        // function tick() {
+            var counter = document.getElementById("counter");
+            // seconds--;
+            // counter.innerHTML = "0:" + (seconds < 10 ? "0" : "") + String(seconds);
+            let timer = setInterval(() => {
+                seconds--
+                counter.innerHTML = "0:" + (seconds < 10 ? "0" : "") + String(seconds);
+                if(seconds === 0){
+                    clearInterval(timer)
+                    alert("Game Over !!!!!")
+                }
+            }, 600)
+        //     if( seconds > 0 ) {
+        //         // setTimeout(tick, 2200);
+        //     } else {
+        //         alert("Game over");
+        //     }
+        // }
+        // tick();
+        }
+    // }
 
+    noMove(theX, theY){
+        if(theX >= 0 && theX <= theGame.grid.length && theY >= 0 && theY <=  theGame.grid[0].length) {
+            return true
+        } else {
+            console.log("oops, you're trying to leave the grid.");
+            document.getElementById('idOutputText').innerHTML = "Looks like you're trying to leave the grid.";
+            return false
+        }
+    }
 }
 
-    class Monster{
+    class Monster {
         constructor(){
-            this.x = 2;
-            this.y = 3;
             this.health = 20;
-            this.strength = 50;
-            this.monsterPosition = this.x, this.y;
+            this.strength = 25;
+            this.monsterPosition;
         }
 
-        // trying to prompt user when monster position is the same as the player position
-        // if(playerPosition === monsterPosition ){
-        //     prompt("do you like football");
-        //     return;
-        // }
+        setMonster(){
+            for (var x = 0; x < grid.length; x++){
+                for (var y = 0; y < grid[x].length; y++){
+                    if(this.grid[x][y] === 'm'){
+                        this.monsterPosition = [x, y];
+                        // alert("YOU HAVE SUCCESSFULLY PASSED THIS LEVEL!!!")
+                    }
+                }
+            }
+        }
+ 
 }
  
     class Timer {
@@ -136,25 +164,23 @@ let grid = [
     //     [null, 'o', null, null, 'o'],
     //     [null, 'e', null, 'o', null],
             // }
-// ];
-
-document.getElementById('pictureDiv').style = "display:none";
+// ]
 
 
 document.getElementById('start-game').onclick = function () {
+    prompt('are you sure? Timer will start now.');
     console.log("game starting!")
-    // player
-    //logs to the console what you have to do
-    // console.log('You are at position ' + player.x + '. You have 120 seconds to finish the maze.')
-    // document.getElementById('idOutputText').innerHTML = "You are at position " + player.x + ". You have 120 seconds to finish the maze. Use your arrow keys to walk through.";
-    // Game.obstacles;
+    document.getElementById('idOutputText').innerHTML = "Well, even if you ain't. <br>You are at position " + player.x + ". This is the top of the grid. You have 60 seconds to finish the maze. Use your arrow keys to walk through.";
     // calling the shuffle array function
     // shuffleArray();
-    document.getElementsByClassName('arrowKeysPictures').style = "visibility:visible"
     document.getElementById('start-game').style = "display:none";
     theGame = new Game(grid, new Player());
+    theGame.setExit();
+    var audio = new Audio('SOUNDS/creepy-background-daniel_simon.mp3');
+    console.log("******** ", theGame);
+    theGame.player.countdown();
 }
-let player = new Player(); 
+let player = new Player();
 // let gameWon = gameWon();
 // let getObstacles = this.obstacles;
 let monster = new Monster();
@@ -173,10 +199,6 @@ let monster = new Monster();
 
     // randomize the position of the monster on the grid, only on spots that are null
     function monsterPosition(){
-        // for (let i = 0; i > mon){
-
-        // }
-
         //make the monster prompt a question. each question asked takes away 10 life. two right answers lets you kill the monster
     }
 
@@ -184,71 +206,106 @@ let monster = new Monster();
 document.body.onkeydown = function(e){
     // this if statement checks to see if the keys being pressed are left right up or down
     if (e.keyCode >= 37 && e.keyCode <= 40){
-        //
-
         // function that checks to see if you're leaving the grid
-        function noMove(axis, direction){
+        // function noMove(theX, theY){
+        //     if(theX >= 0 && theX <= theGame.grid.length && theY >= 0 && theY <=  theGame.grid[0].length) {
+        //         return true
+        //     } else {
+        //         console.log("oops, you're trying to leave the grid");
+        //         document.getElementById('idOutputText').innerHTML = "Looks like you're trying to leave the grid";
+        //         return false
+            
             //checks y axis
-            if(axis == "y") {
-                if(player.y < 1 && direction === "top" || direction === "down" &&player.y > 3){
-                    console.log("oops, you're trying to leave the grid y");
-                    document.getElementById('idOutputText').innerHTML = "Looks like you're trying to leave the grid";
-                    return false
-                } else {
-                    return true   
+            // if(axis == "y") {
+            //     if(player.y < 1 && direction === "top" || direction === "down" &&player.y > 3){
+            //         console.log("oops, you're trying to leave the grid y");
+            //         document.getElementById('idOutputText').innerHTML = "Looks like you're trying to leave the grid";
+            //         return false
+            //     } else {
+            //         return true   
+            //     }
+            // }
+            // // checks for the x axis 
+            // if(axis == "x") {
+            //     if(player.x < 1 && direction === "left" || direction === "right" && player.x > 3){
+            //         console.log("oops, you're trying to leave the grid x");
+            //         document.getElementById('idOutputText').innerHTML = "Looks like you're trying to leave the grid";
+            //         return false
+            //     } else {
+            //         return true    
+            //     }
+            // }
+            // return move(e);
+            //check obstacles with futureX and futureY
+
+
+            function obstacles(futureX, futureY){
+                // console.log("the obstacle function")
+                let result = true
+                for(let k = 0; k < theGame.obstacles.length; k++){
+                    // console.log("running for loop for obstacles")
+                    if(futureX == theGame.obstacles[k][0] && futureY == theGame.obstacles[k][1]){
+                        console.log(">>>>> the game obstacle in for loop <<<<< ", theGame.obstacles[k]);
+                        document.getElementById('idOutputText').innerHTML = "There is a wall there. Movement is not allowed.";
+                        result = false;
+                    }
                 }
-            }
-            //checks for the x axis 
-            if(axis == "x") {
-                if(player.x < 1 && direction === "left" || direction === "right" && player.x > 3){
-                    console.log("oops, you're trying to leave the grid x");
-                    document.getElementById('idOutputText').innerHTML = "Looks like you're trying to leave the grid";
-                    return false
-                } else {
-                    return true    
+                if(futureX === theGame.exit[0] && futureY === theGame.exit[1]) {
+                    setTimeout(() => {
+                        alert("YOU HAVE SUCCESSFULLY PASSED THIS LEVEL!!!")
+                    }, 1)
+                    window.location.reload();
                 }
+                return result;
             }
-            return move(e);
+
+
             // moving around the grid
             function move(e){
+                // obstacles(player.x, player.y);
             if (e.keyCode === 37){
-                if(noMove("x", "left")) {
-                    player.x -= 1;
-                    console.log('moved one spot to the left');
-                    document.getElementById('idOutputText').innerHTML = "Moved one spot to the left.";
+                if(player.noMove(player.x-1, player.y)) {
+                    if(obstacles(player.x-1, player.y)){
+                        player.x -= 1;
+                        console.log('moved one spot to what you believe to be left');
+                        document.getElementById('idOutputText').innerHTML = "moved one spot to what you believe to be the left.";
+                    }
                 }
             } 
             if (e.keyCode === 39){
-                if(noMove("x", "right")) {
-                    player.x += 1;
-                    console.log('moved one spot to the right');
-                    document.getElementById('idOutputText').innerHTML = "Moved one spot to the right.";
+                if(player.noMove(player.x+1, player.y)) {
+                    if(obstacles(player.x+1, player.y)){
+                        player.x += 1;
+                        console.log('moved one spot to what you believe to be right');
+                        document.getElementById('idOutputText').innerHTML = "moved one spot to what you believe to be the right.";
+                    }
                 }
             } 
             if (e.keyCode === 38){
-                if(noMove("y", "top")){
-                    player.y -= 1;
-                    console.log('moved one spot to the top');
-                    document.getElementById('idOutputText').innerHTML = "Moved one spot up.";
+                if(player.noMove(player.x, player.y-1)){
+                    if(obstacles(player.x, player.y-1)){
+                        player.y -= 1;
+                        console.log('moved one spot to what you believe to be top');
+                        document.getElementById('idOutputText').innerHTML = "moved one spot to what you believe to be up.";
+                    }
                 }
             } 
             if (e.keyCode === 40){
-                if(noMove("y", "down")){
-                    player.y += 1;
-                    console.log('moved one spot down');
-                    document.getElementById('idOutputText').innerHTML = "Moved one spot down.";
+                if(player.noMove(player.x, player.y+1)){
+                    if(obstacles(player.x, player.y+1)){
+                        player.y += 1;
+                        console.log('moved one spot to what you believe to be down');
+                        document.getElementById('idOutputText').innerHTML = "moved one spot to what you believe to be down.";
                     }
                 }
-            
             }
-        
-        
-        }
-    return noMove(e);
+        }  
     }
+    console.log('------------- ', player.x, player.y)
+    move(e);
+    
+
+
 }
-
-
-
 
 
